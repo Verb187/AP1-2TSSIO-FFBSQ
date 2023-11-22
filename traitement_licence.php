@@ -3,13 +3,27 @@ require_once './config/config.php';
 
 session_start();
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $numNewLicence = $_POST['numNewLicence'];
-    $numlicenceCom = $_POST['numlicenceCom'];
-    $nom = $_POST['nom'];
 
-    $sql = "INSERT INTO licences (numNewLicence, numlicenceCom, nom) VALUES ('$numNewLicence', '$numlicenceCom', '$nom')";
-    $result = $mysqli->query($sql);
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (isset($_POST['action'])) {
+        if ($_POST['action'] === 'creation') {
+            // Traitement pour le formulaire 1
+            $NumLicence = $_POST['NumLicence'];
+            $sql = "INSERT INTO licences (NumLicence, nom) VALUES ('$NumLicence', '$nom')";
+            $result = $mysqli->query($sql);
+        } elseif ($_POST['action'] === 'mutation') {
+            // Traitement pour le formulaire 2
+            $NumLicence = $_POST['NumLicence'];
+            $nom = $_POST['nom'];
+            $stmt = $mysqli->prepare("UPDATE licences SET nom = $nom WHERE NumLicence = $NumLicence");
+            $stmt->bind_param("ss", $nom, $NumLicence);
+            $stmt->execute();
+            $stmt->close();
+        }
+    } else {
+        // Aucun formulaire soumis
+        echo "Aucun formulaire soumis.";
+    }
 
     if ($result) {
         // Redirection vers licences.php
@@ -18,3 +32,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
+?>

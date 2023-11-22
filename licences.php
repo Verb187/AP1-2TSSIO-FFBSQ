@@ -26,23 +26,25 @@ require_once './assets/header.php';
 <body>
     <h1> création d'un nouveau licencié </h1>
 
-    <form action="traitement_licence.php" method="post">
+    <form action="traitement_licence.php" method="post" id="creation">
 
-        <label class="form-label" for="numNewLicence">Création avec un numéro de licence :</label>
-        <input  class="form-control" type="number" id="numNewLicence" name="numNewLicence" required>
+        <label class="form-label" for="NumLicence">Création avec un numéro de licence :</label>
+        <input  class="form-control" type="number" id="NumLicence" name="NumLicence" >
         <br>
-
+        <input type="submit" class="btn btn-primary" value="Envoyer">
+    </form>
+    <form action="traitement_licence.php" method="post" id="mutation">
         <h1> Mutation inter comité </h1>
 
-        <label class="form-label" for="numlicenceCom">N° licence :</label>
-        <input  class="form-control" type="number" id="numlicenceCom" name="numlicenceCom" required>
+        <label class="form-label" for="NumLicence">N° licence :</label>
+        <input  class="form-control" type="number" id="NumLicence" name="NumLicence" >
 
         <label class="form-label" for="nom">Nom :</label>
-        <input  class="form-control" type="text" id="nom" name="nom" required>
+        <input  class="form-control" type="text" id="nom" name="nom" >
         <br>
 
         <input type="submit" class="btn btn-primary" value="Envoyer">
-        <button onclick="window.location.href='page_suivante.html'" >Aller à la page suivante</button>
+        <button onclick="window.location.href='licences_visualisation.php'" class="btn btn-primary" >Licences</button>
        
     </form>
  

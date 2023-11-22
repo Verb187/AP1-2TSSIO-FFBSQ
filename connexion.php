@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $sql = "SELECT id, mot_de_passe FROM utilisateurs WHERE login = '$login'";
     $result = $mysqli->query($sql);
-
+    
     if ($result->num_rows === 1) {
         $row = $result->fetch_assoc();
         $hashed_password = $row['mot_de_passe'];
@@ -25,6 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo "Login incorrect.";
     }
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="fr">

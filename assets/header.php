@@ -20,11 +20,17 @@
                 <ul class="navbar-nav ml-auto">
                     <!-- Ajoutez des liens de navigation ici, par exemple : -->
                      <li class="nav-item">
-                        <a class="nav-link" href="#">Accueil</a>
+                        <a class="nav-link" href="tableau_de_bord.php">Accueil</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Tableau de bord</a>
+                        <a class="nav-link" href="tableau_de_bord.php">Tableau de bord</a>
                     </li> 
+                    <li class="nav-item">
+                        <a class="nav-link" href="licences.php">Licences</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="concours.php">concours</a>
+                    </li>
                     <!-- deconnexion.php a droite -->
                     <li class="nav-item">
                         <a class="nav-link" href="./deconnexion.php">Se déconnecter</a>

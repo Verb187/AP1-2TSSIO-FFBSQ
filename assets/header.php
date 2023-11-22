@@ -19,9 +19,6 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ml-auto">
                     <!-- Ajoutez des liens de navigation ici, par exemple : -->
-                     <li class="nav-item">
-                        <a class="nav-link" href="#">Accueil</a>
-                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Tableau de bord</a>
                     </li> 

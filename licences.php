@@ -13,7 +13,6 @@ require_once './assets/header.php';
 ?>
 
 
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -24,28 +23,30 @@ require_once './assets/header.php';
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <h1> création d'un nouveau licencié </h1>
+    <h1>Création d'un nouveau licencié</h1>
 
     <form action="traitement_licence.php" method="post" id="creation">
 
-        <label class="form-label" for="NumLicence">Création avec un numéro de licence :</label>
-        <input  class="form-control" type="number" id="NumLicence" name="NumLicence" >
+        <label class="form-label" for="NumLicenceCreation">Création avec un numéro de licence :</label>
+        <input class="form-control" type="number" id="NumLicenceCreation" name="NumLicence">
+        <input type="hidden" name="action" value="creation"> <!-- Champ caché pour l'action -->
         <br>
         <input type="submit" class="btn btn-primary" value="Envoyer">
     </form>
-    <form action="traitement_licence.php" method="post" id="mutation">
-        <h1> Mutation inter comité </h1>
 
-        <label class="form-label" for="NumLicence">N° licence :</label>
-        <input  class="form-control" type="number" id="NumLicence" name="NumLicence" >
+    <form action="traitement_licence.php" method="post" id="mutation">
+        <h1>Mutation inter comité</h1>
+
+        <label class="form-label" for="NumLicenceMutation">N° licence :</label>
+        <input class="form-control" type="number" id="NumLicenceMutation" name="NumLicence">
 
         <label class="form-label" for="nom">Nom :</label>
-        <input  class="form-control" type="text" id="nom" name="nom" >
+        <input class="form-control" type="text" id="nom" name="nom">
+        <input type="hidden" name="action" value="mutation"> <!-- Champ caché pour l'action -->
         <br>
 
         <input type="submit" class="btn btn-primary" value="Envoyer">
-        <button onclick="window.location.href='licences_visualisation.php'" class="btn btn-primary" >Licences</button>
-       
+        <button onclick="window.location.href='licences_visualisation.php'" class="btn btn-primary">Licences</button>
     </form>
  
 </body>

@@ -18,7 +18,7 @@ require_once './assets/header.php';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tableau de bord - FFBSQ</title>
+    <title>mutation - création</title>
     <!-- Inclure Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
@@ -46,7 +46,7 @@ require_once './assets/header.php';
         <br>
 
         <input type="submit" class="btn btn-primary" value="Envoyer">
-        <button onclick="window.location.href='licences_visualisation.php'" class="btn btn-primary">Licences</button>
+        <a href="licences_visualisation.php" class="btn btn-primary">Licences</a>
     </form>
  
 </body>

@@ -4,18 +4,18 @@ require_once './config/config.php';
 session_start();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $login = $_POST['login'];
-    $mot_de_passe = $_POST['password'];
+    $login = $_POST['UtilLogin'];
+    $mot_de_passe = $_POST['UtilPassword'];
 
-    $sql = "SELECT id, mot_de_passe FROM utilisateurs WHERE login = '$login'";
+    $sql = "SELECT UtilID, UtilPassword FROM utilisateur WHERE UtilLogin = '$login'";
     $result = $mysqli->query($sql);
     
     if ($result->num_rows === 1) {
         $row = $result->fetch_assoc();
-        $hashed_password = $row['mot_de_passe'];
+        $hashed_password = $row['UtilPassword'];
 
         if (password_verify($mot_de_passe, $hashed_password)) {
-            $_SESSION['utilisateur_id'] = $row['id'];
+            $_SESSION['utilisateur_id'] = $row['UtilID'];
             header("Location: tableau_de_bord.php");
             exit();
         } else {

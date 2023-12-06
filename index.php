@@ -13,14 +13,14 @@ require_once './config/config.php';
 // Vérifier si le formulaire d'inscription a été soumis
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Récupérer les données du formulaire
-    $nom = $_POST['nom'];
-    $prenom = $_POST['prenom'];
-    $login = $_POST['login'];
-    $mot_de_passe = $_POST['mot_de_passe'];
-    $email = $_POST['email'];
+    $nom = $_POST['UtilNom'];
+    $prenom = $_POST['UtilPrenom'];
+    $login = $_POST['UtilLogin'];
+    $mot_de_passe = $_POST['UtilPassword'];
+    $email = $_POST['UtilEmail'];
 
     // Vérifier si l'utilisateur existe déjà
-    $sql = "SELECT id FROM utilisateurs WHERE login = '$login' OR email = '$email'";
+    $sql = "SELECT UtilID FROM utilisateur WHERE UtilLogin = '$login' OR UtilEmail = '$email'";
     $result = $mysqli->query($sql);
 
     if ($result->num_rows > 0) {
@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $hashed_password = password_hash($mot_de_passe, PASSWORD_DEFAULT);
 
         // Insérer l'utilisateur dans la base de données
-        $insert_sql = "INSERT INTO utilisateurs (nom, prenom, login, mot_de_passe, email) 
+        $insert_sql = "INSERT INTO utilisateur (UtilNom, UtilPrenom, UtilLogin, UtilPassword, UtilEmail) 
                        VALUES ('$nom', '$prenom', '$login', '$hashed_password', '$email')";
 
         if ($mysqli->query($insert_sql)) {
@@ -52,6 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>Page de connexion/inscription  FFBSQ</title>
     <!-- Inclure Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </head>
 <body>
     <div class="container mt-5">
@@ -74,12 +75,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <form action="connexion.php" method="post">
                             <h2 class="mb-3">Connexion</h2>
                             <div class="mb-3">
-                                <label for="login" class="form-label">Login</label>
-                                <input type="text" class="form-control" name="login" id="login" required>
+                                <label for="UtilLogin" class="form-label">Login</label>
+                                <input type="text" class="form-control" name="UtilLogin" id="UtilLogin" required>
                             </div>
                             <div class="mb-3">
-                                <label for="password" class="form-label">Mot de passe</label>
-                                <input type="password" class="form-control" name="password" id="password" required>
+                                <label for="UtilPassword" class="form-label">Mot de passe</label>
+                                <input type="password" class="form-control" name="UtilPassword" id="UtilPassword" required>
                             </div>
                             <button type="submit" class="btn btn-primary">Se connecter</button>
                         </form>
@@ -90,24 +91,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <form action="" method="post">
                             <h2 class="mb-3">Inscription</h2>
                             <div class="mb-3">
-                                <label for="nom" class="form-label">Nom</label>
-                                <input type="text" class="form-control" name="nom" id="nom" required>
+                                <label for="UtilNom" class="form-label">Nom</label>
+                                <input type="text" class="form-control" name="UtilNom" id="UtilNom" required>
                             </div>
                             <div class="mb-3">
-                                <label for="prenom" class="form-label">Prénom</label>
-                                <input type="text" class="form-control" name="prenom" id="prenom" required>
+                                <label for="UtilPrenom" class="form-label">Prénom</label>
+                                <input type="text" class="form-control" name="UtilPrenom" id="UtilPrenom" required>
                             </div>
                             <div class="mb-3">
-                                <label for="login" class="form-label">Login</label>
-                                <input type="text" class="form-control" name="login" id="login" required>
+                                <label for="UtilLogin" class="form-label">Login</label>
+                                <input type="text" class="form-control" name="UtilLogin" id="UtilLogin" required>
                             </div>
                             <div class="mb-3">
-                                <label for="mot_de_passe" class="form-label">Mot de passe</label>
-                                <input type="password" class="form-control" name="mot_de_passe" id="mot_de_passe" required>
+                                <label for="UtilPassword" class="form-label">Mot de passe</label>
+                                <input type="password" class="form-control" name="UtilPassword" id="UtilPassword" required>
                             </div>
                             <div class="mb-3">
-                                <label for="email" class="form-label">Email</label>
-                                <input type="email" class="form-control" name="email" id="email" required>
+                                <label for="UtilEmail" class="form-label">Email</label>
+                                <input type="email" class="form-control" name="UtilEmail" id="UtilEmail" required>
                             </div>
                             <button type="submit" class="btn btn-primary">S'inscrire</button>
                         </form>

@@ -35,13 +35,14 @@ require_once './assets/header.php';
     while($row = $result->fetch_assoc()){
         echo "<tr>";
         echo "<td>" . $row["NumLicence"] . "</td>";
-        echo "<td><a href='UniLicence.php?NumLicence=" . $row["NumLicence"] . "'>" . $row["nom"] . "</a></td>";
+        echo "<td><td><a href='UniLicence.php?NumLicence=" . $row["NumLicence"] . "'>" . $row["LicenceNom"] . "</a></td>";
         echo "</tr>";
     }
 
     echo "</table>";
 } else {
-    echo "aucun résultats trouvé";
+    echo "aucun résultats trouvé ";
+    echo "<br>";
 }
 
 $mysqli->close();

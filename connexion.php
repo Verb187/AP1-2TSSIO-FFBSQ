@@ -3,6 +3,9 @@ require_once './config/config.php';
 
 session_start();
 
+$erreurLogin = "";
+$erreurMotDePasse = "";
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $login = $_POST['UtilLogin'];
     $mot_de_passe = $_POST['UtilPassword'];
@@ -19,13 +22,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             header("Location: tableau_de_bord.php");
             exit();
         } else {
-            echo "Mot de passe incorrect.";
+            $_SESSION['errorMessage'] = "Mot de passe incorrect !";
+            header("Location:index.php");
+            exit();
         }
     } else {
-        echo "Login incorrect.";
+        $_SESSION['errorMessage'] = "Login incorrect";
+        header("Location: index.php");
+        exit();
     }
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="fr">

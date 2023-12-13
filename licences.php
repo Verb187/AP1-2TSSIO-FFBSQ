@@ -34,6 +34,12 @@ require_once './assets/header.php';
         <input type="submit" class="btn btn-primary" value="Envoyer">
     </form>
 
+
+
+
+
+
+    
     <form action="traitement_licence.php" method="post" id="mutation">
         <h1>Mutation inter comité</h1>
 

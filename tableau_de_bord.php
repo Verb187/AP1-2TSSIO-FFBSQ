@@ -12,7 +12,7 @@ require_once './assets/header.php';
 
 $utilisateur_id = $_SESSION['utilisateur_id'];
 
-$sql = "SELECT nom, prenom FROM utilisateurs WHERE id = $utilisateur_id";
+$sql = "SELECT UtilNom, UtilPrenom FROM utilisateur WHERE UtilID = $utilisateur_id";
 $result = $mysqli->query($sql);
 
 if ($result === false || $result->num_rows !== 1) {
@@ -21,8 +21,8 @@ if ($result === false || $result->num_rows !== 1) {
 }
 
 $row = $result->fetch_assoc();
-$nom = $row['nom'];
-$prenom = $row['prenom'];
+$nom = $row['UtilNom'];
+$prenom = $row['UtilPrenom'];
 ?>
 
 <!DOCTYPE html>

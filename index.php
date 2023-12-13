@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $result = $mysqli->query($sql);
 
     if ($result->num_rows > 0) {
-        echo "L'utilisateur avec le même nom d'utilisateur ou la même adresse e-mail existe déjà.";
+        $_SESSION['errorMessage'] = "L'utilisateur avec le même nom d'utilisateur ou la même adresse e-mail existe déjà.";
     } else {
         // Hasher le mot de passe (assurez-vous d'utiliser des méthodes de hachage sécurisées en production)
         $hashed_password = password_hash($mot_de_passe, PASSWORD_DEFAULT);
@@ -34,9 +34,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                        VALUES ('$nom', '$prenom', '$login', '$hashed_password', '$email')";
 
         if ($mysqli->query($insert_sql)) {
-            echo "Inscription réussie !";
+            $_SESSION['goodMessage'] = "Inscription réussie";
+            header("Location: index.php");
+            exit();
         } else {
-            echo "Erreur lors de l'inscription : " . $mysqli->error;
+            $_SESSION['errorMessage'] = "Erreur lors de l'inscription : " . $mysqli->error;
         }
     }
 
@@ -82,6 +84,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 <label for="UtilPassword" class="form-label">Mot de passe</label>
                                 <input type="password" class="form-control" name="UtilPassword" id="UtilPassword" required>
                             </div>
+                            <?php
+                                if (isset($_SESSION['errorMessage'])) {
+                                $errorMessage = $_SESSION['errorMessage'];
+                                echo '<p style="color: red;">' . $errorMessage . '</p>';
+                                unset($_SESSION['errorMessage']); // Supprimez la variable de session après utilisation
+                                }?>
+                                 <?php
+                                 if (isset($_SESSION['goodMessage'])) {
+                                $goodMessage = $_SESSION['goodMessage'];
+                                echo '<p style="color: green;">' . $goodMessage . '</p>';
+                                unset($_SESSION['goodMessage']); // Supprimez la variable de session après utilisation
+                                }?>
                             <button type="submit" class="btn btn-primary">Se connecter</button>
                         </form>
                     </div>
@@ -117,7 +131,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
         </div>
     </div>
-
     <!-- Inclure Bootstrap JS (facultatif, mais nécessaire pour certaines fonctionnalités Bootstrap) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 </body>

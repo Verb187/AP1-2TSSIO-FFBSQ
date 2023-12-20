@@ -53,7 +53,7 @@ require_once './assets/header.php';
                 // Parcourez les résultats et affichez chaque utilisateur dans une ligne du tableau
                 while ($row = $result->fetch_assoc()) {
                     echo '<tr>';
-                    echo '<td>' . $row['UtilNom'] . '</td>';
+                    echo '<td>'  .$row['UtilNom'] . '</td>';
                     echo '<td>' . $row['UtilPrenom'] . '</td>';
                     echo '<td>' . $row['UtilLogin'] . '</td>';
                     echo '<td>' . $row['UtilEmail'] . '</td>';

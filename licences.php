@@ -29,6 +29,8 @@ require_once './assets/header.php';
 
         <label class="form-label" for="NumLicenceCreation">Création avec un numéro de licence :</label>
         <input class="form-control" type="number" id="NumLicenceCreation" name="NumLicence">
+        <label class="form-label" for="NomLicenceCreation">Nom du licencié :</label>
+        <input class="form-control" type="nom" id="NomLicenceCreation" name="NomLicence">
         <input type="hidden" name="action" value="creation"> <!-- Champ caché pour l'action -->
         <br>
         <input type="submit" class="btn btn-primary" value="Envoyer">
@@ -46,8 +48,8 @@ require_once './assets/header.php';
         <label class="form-label" for="NumLicenceMutation">N° licence :</label>
         <input class="form-control" type="number" id="NumLicenceMutation" name="NumLicence">
 
-        <label class="form-label" for="nom">Nom :</label>
-        <input class="form-control" type="text" id="nom" name="nom">
+        <label class="form-label" for="nom">Nouveau Club :</label>
+        <input class="form-control" type="text" id="club" name="ClubLicence">
         <input type="hidden" name="action" value="mutation"> <!-- Champ caché pour l'action -->
         <br>
 

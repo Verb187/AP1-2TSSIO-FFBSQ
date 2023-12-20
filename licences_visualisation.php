@@ -30,7 +30,7 @@ require_once './assets/header.php';
 
    
     echo "<table>";
-    echo "<tr><th>N° Licence</th><th>Nom</th></tr>";
+    echo "<tr><th>N° Licence</th><th> </th><th>Nom</th></tr>";
 
     while($row = $result->fetch_assoc()){
         echo "<tr>";

@@ -1,5 +1,5 @@
 <?php
-require_once './config/config.php';
+require_once './Controller/DAOConnect.php';
 
 session_start();
 
@@ -15,9 +15,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $hashed_password = $row['mot_de_passe'];
 
         if (password_verify($mot_de_passe, $hashed_password)) {
-            $_SESSION['utilisateur_id'] = $row['id'];
-            header("Location: tableau_de_bord.php");
-            exit();
+            // Mot de passe correct, mettre à jour la dernière connexion dans la base de données
+            $utilisateur_id = $row['id'];
+            $date_connexion = date('Y-m-d H:i:s', strtotime('+1 hour')); // Ajouter 1 heure à l'heure actuelle
+            $sql_update = "UPDATE utilisateurs SET derniere_connexion = '$date_connexion' WHERE id = $utilisateur_id";
+
+            if ($mysqli->query($sql_update)) {
+                $_SESSION['utilisateur_id'] = $utilisateur_id;
+                header("Location: tableau_de_bord.php");
+                exit();
+            } else {
+                echo "Erreur lors de la mise à jour de la dernière connexion: " . $mysqli->error;
+            }
         } else {
             echo "Mot de passe incorrect.";
         }
@@ -26,6 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>

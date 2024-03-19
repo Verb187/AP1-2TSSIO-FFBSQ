@@ -8,7 +8,7 @@ if (isset($_SESSION['utilisateur_id'])) {
     exit();
 }
 
-require_once './config/config.php';
+require_once './Controller/DAOConnect.php';
 
 // Vérifier si le formulaire d'inscription a été soumis
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -49,15 +49,80 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<<<<<<< Updated upstream
     <title>Page de connexion/inscription - FFBSQ</title>
+=======
+    <title>Page de connexion/inscription FFBSQ</title>
+>>>>>>> Stashed changes
     <!-- Inclure Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Ajouter des styles personnalisés -->
+    <style>
+        body {
+            background-color: #f2f2f2;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            margin-top: 50px;
+            flex: 1;
+        }
+
+        .nav-tabs .nav-link {
+            color: #fff;
+            background-color: #007bff;
+            border: 1px solid #007bff;
+            border-radius: 0.25rem 0.25rem 0 0;
+        }
+
+        .nav-tabs .nav-link.active {
+            background-color: #fff;
+            color: #007bff;
+            border-color: #dee2e6 #dee2e6 #fff;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            color: #007bff;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        button[type="submit"] {
+            background-color: #007bff;
+            border: none;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        .ffbsq-logo {
+            display: block;
+            margin: 0 auto 20px;
+            max-width: 150px;
+        }
+
+    </style>
 </head>
 <body>
-    <div class="container mt-5">
+    <div class="container mb-5">
         <div class="row justify-content-center">
             <div class="col-md-6">
-                <!-- Onglets de navigation pour la connexion et l'inscription -->
+                <img src="./assets/img/logo_ffbsq.png" alt="Logo FFBSQ" class="ffbsq-logo">
                 <ul class="nav nav-tabs" id="myTabs" role="tablist">
                     <li class="nav-item" role="presentation">
                         <a class="nav-link active" id="connexion-tab" data-bs-toggle="tab" href="#connexion" role="tab" aria-controls="connexion" aria-selected="true">Connexion</a>
@@ -67,12 +132,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </li>
                 </ul>
 
-                <!-- Contenu des onglets -->
                 <div class="tab-content mt-3" id="myTabsContent">
-                    <!-- Onglet Connexion -->
                     <div class="tab-pane fade show active" id="connexion" role="tabpanel" aria-labelledby="connexion-tab">
                         <form action="connexion.php" method="post">
-                            <h2 class="mb-3">Connexion</h2>
+                            <h2>Connexion</h2>
                             <div class="mb-3">
                                 <label for="login" class="form-label">Login</label>
                                 <input type="text" class="form-control" name="login" id="login" required>
@@ -85,10 +148,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         </form>
                     </div>
 
-                    <!-- Onglet Inscription -->
                     <div class="tab-pane fade" id="inscription" role="tabpanel" aria-labelledby="inscription-tab">
                         <form action="" method="post">
-                            <h2 class="mb-3">Inscription</h2>
+                            <h2>Inscription</h2>
                             <div class="mb-3">
                                 <label for="nom" class="form-label">Nom</label>
                                 <input type="text" class="form-control" name="nom" id="nom" required>
@@ -117,7 +179,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
     </div>
 
-    <!-- Inclure Bootstrap JS (facultatif, mais nécessaire pour certaines fonctionnalités Bootstrap) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 </body>
 </html>

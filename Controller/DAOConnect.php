@@ -1,19 +1,27 @@
 <?php
-// Paramètres de connexion à la base de données
-$hostname = 'localhost';  // L'adresse du serveur MySQL (généralement localhost)
-$username = 'root'; // Votre nom d'utilisateur MySQL
-$password = ''; // Votre mot de passe MySQL
-$database = 'AP_FFBSQ'; // Le nom de votre base de données MySQL
+class DAOConnect {
+    private static $mysqli;
 
-// Connexion à la base de données
-$mysqli = new mysqli($hostname, $username, $password, $database);
+    public static function getInstance() {
+        if (!isset(self::$mysqli)) {
+            // Paramètres de connexion à la base de données
+            $hostname = 'localhost';
+            $username = 'root';
+            $password = '';
+            $database = 'AP_FFBSQ';
 
-// Vérification de la connexion
-if ($mysqli->connect_error) {
-    die("Échec de la connexion à la base de données : " . $mysqli->connect_error);
+            // Connexion à la base de données
+            self::$mysqli = new mysqli($hostname, $username, $password, $database);
+
+            // Vérification de la connexion
+            if (self::$mysqli->connect_error) {
+                die("Échec de la connexion à la base de données : " . self::$mysqli->connect_error);
+            }
+
+            // Définir le jeu de caractères de la connexion
+            self::$mysqli->set_charset("utf8");
+        }
+        return self::$mysqli;
+    }
 }
-
-// Définir le jeu de caractères de la connexion (facultatif, mais recommandé)
-$mysqli->set_charset("utf8");
-
 ?>

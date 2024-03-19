@@ -1,16 +1,4 @@
-<?php
-session_start();
 
-if (!isset($_SESSION['utilisateur_id'])) {
-    header("Location: index.php");
-    exit();
-}
-
-require_once './Controller/DAOConnect.php';
-require_once './assets/header.php';
-
-
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

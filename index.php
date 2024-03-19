@@ -1,59 +1,18 @@
 <?php
 session_start();
-
-// Vérifier si l'utilisateur est déjà connecté
 if (isset($_SESSION['utilisateur_id'])) {
-    // Rediriger vers le tableau de bord si l'utilisateur est déjà connecté
-    header("Location: tableau_de_bord.php");
+    header("Location: ./view/tableau_de_bord.php");
     exit();
 }
 
-require_once './Controller/DAOConnect.php';
-
-// Vérifier si le formulaire d'inscription a été soumis
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Récupérer les données du formulaire
-    $nom = $_POST['nom'];
-    $prenom = $_POST['prenom'];
-    $login = $_POST['login'];
-    $mot_de_passe = $_POST['mot_de_passe'];
-    $email = $_POST['email'];
-
-    // Vérifier si l'utilisateur existe déjà
-    $sql = "SELECT id FROM utilisateurs WHERE login = '$login' OR email = '$email'";
-    $result = $mysqli->query($sql);
-
-    if ($result->num_rows > 0) {
-        echo "L'utilisateur avec le même nom d'utilisateur ou la même adresse e-mail existe déjà.";
-    } else {
-        // Hasher le mot de passe (assurez-vous d'utiliser des méthodes de hachage sécurisées en production)
-        $hashed_password = password_hash($mot_de_passe, PASSWORD_DEFAULT);
-
-        // Insérer l'utilisateur dans la base de données
-        $insert_sql = "INSERT INTO utilisateurs (nom, prenom, login, mot_de_passe, email) 
-                       VALUES ('$nom', '$prenom', '$login', '$hashed_password', '$email')";
-
-        if ($mysqli->query($insert_sql)) {
-            echo "Inscription réussie !";
-        } else {
-            echo "Erreur lors de l'inscription : " . $mysqli->error;
-        }
-    }
-
-    // Fermer la connexion à la base de données
-    $mysqli->close();
-}
 ?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<<<<<<< Updated upstream
     <title>Page de connexion/inscription - FFBSQ</title>
-=======
-    <title>Page de connexion/inscription FFBSQ</title>
->>>>>>> Stashed changes
     <!-- Inclure Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Ajouter des styles personnalisés -->
@@ -134,7 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 <div class="tab-content mt-3" id="myTabsContent">
                     <div class="tab-pane fade show active" id="connexion" role="tabpanel" aria-labelledby="connexion-tab">
-                        <form action="connexion.php" method="post">
+                        <form action="./Controller/controllerConnexion.php" method="post">
                             <h2>Connexion</h2>
                             <div class="mb-3">
                                 <label for="login" class="form-label">Login</label>

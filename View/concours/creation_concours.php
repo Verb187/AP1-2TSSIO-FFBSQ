@@ -1,13 +1,12 @@
 <?php
-session_start();
+require_once (realpath(dirname(__FILE__) . '/../../Controller/controllerConcours.php'));
 
-if (!isset($_SESSION['utilisateur_id'])) {
-    header("Location: index.php");
-    exit();
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $controller = new ConcoursController();
+    $controller->ajouterConcours();
 }
-
-require_once './Controller/DAOConnect.php';
 ?>
+
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -21,7 +20,7 @@ require_once './Controller/DAOConnect.php';
 <body>
     <h2 class="text-center mb-4">Création d'un concours</h2>
     <div class="container-fluid mt-5">
-        <form action="./traitement/concours.php" method="POST">
+    <form action="creation_concours.php" method="POST">
             <div class="row g-3">
                 <div class="col-md-6">
                     <label for="date" class="form-label">Date :</label>

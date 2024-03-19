@@ -1,49 +1,5 @@
 <?php
-session_start();
-
-if (!isset($_SESSION['utilisateur_id'])) {
-    header("Location: connexion.php");
-    exit();
-}
-
-require_once './Controller/DAOConnect.php';
-
-$utilisateur_id = $_SESSION['utilisateur_id'];
-
-// Récupérer la date et l'heure de la dernière connexion de l'utilisateur depuis la base de données
-$sql_last_login = "SELECT derniere_connexion FROM utilisateurs WHERE id = $utilisateur_id";
-$result_last_login = $mysqli->query($sql_last_login);
-
-if ($result_last_login === false || $result_last_login->num_rows !== 1) {
-    echo "Erreur : Impossible de récupérer la dernière connexion de l'utilisateur.";
-    exit();
-}
-
-$row_last_login = $result_last_login->fetch_assoc();
-$derniere_connexion = $row_last_login['derniere_connexion'];
-
-// Stocker la date et l'heure de la dernière connexion dans la session
-$_SESSION['derniere_connexion'] = $derniere_connexion;
-
-// Récupérer le nom et le prénom de l'utilisateur depuis la base de données
-$sql_user_info = "SELECT nom, prenom FROM utilisateurs WHERE id = $utilisateur_id";
-$result_user_info = $mysqli->query($sql_user_info);
-
-if ($result_user_info === false || $result_user_info->num_rows !== 1) {
-    echo "Erreur : Utilisateur introuvable.";
-    exit();
-}
-
-$row_user_info = $result_user_info->fetch_assoc();
-$nom = $row_user_info['nom'];
-$prenom = $row_user_info['prenom'];
-
-// Stocker le nom et le prénom de l'utilisateur dans la session
-$_SESSION['nom_utilisateur'] = $nom;
-$_SESSION['prenom_utilisateur'] = $prenom;
-
-// Inclure l'en-tête
-require_once './assets/header.php';
+require_once (realpath(dirname(__FILE__) . '/../view/assets/header.php'));
 ?>
 
 <!DOCTYPE html>
@@ -57,7 +13,7 @@ require_once './assets/header.php';
 </head>
 <body>
     <div class="container mt-5">
-        <h1>Bienvenue, <?php echo $prenom . ' ' . $nom; ?>, sur votre tableau de bord</h1>
+        <h1>Bienvenue, <?php echo $userInfo['prenom'] . ' ' . $userInfo['nom']; ?>, sur votre tableau de bord</h1>
         <p>Ceci est votre espace personnel où vous pouvez gérer vos données, etc.</p>
         <a href="deconnexion.php" class="btn btn-danger">Se déconnecter</a>
 

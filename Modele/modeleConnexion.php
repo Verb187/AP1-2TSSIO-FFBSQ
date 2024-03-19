@@ -1,7 +1,11 @@
 <?php
-require_once './Controller/DAOConnect.php';
+
+require_once (realpath(dirname(__FILE__) . '/../Controller/DAOConnect.php'));
 
 session_start();
+
+// Connexion à la base de données
+$mysqli = DAOConnect::getInstance();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $login = $_POST['login'];
@@ -22,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             if ($mysqli->query($sql_update)) {
                 $_SESSION['utilisateur_id'] = $utilisateur_id;
-                header("Location: tableau_de_bord.php");
+                header("Location: ../view/tableau_de_bord.php");
                 exit();
             } else {
                 echo "Erreur lors de la mise à jour de la dernière connexion: " . $mysqli->error;
@@ -44,4 +48,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>Connexion - FFBSQ</title>
     <!-- Inclure Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
+</

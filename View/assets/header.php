@@ -47,6 +47,9 @@ require_once (realpath(dirname(__FILE__) . '/../../Controller/controllerUtilisat
                     <a class="nav-link" href="/view/licence/licences.php">Licences</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="/view/clubs/clubs.php">Clubs</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="/view/concours/concours.php">Concours</a>
                 </li>
                 <!-- deconnexion.php à droite -->

@@ -20,14 +20,29 @@ if(isset($_GET['id'])) {
         $data = array(
             'numero_licence' => $licencie['numlicencie'],
             'nom' => $licencie['nomlicencie'],
-            'prenom' => $licencie['prenomlicencie']
+            'prenom' => $licencie['prenomlicencie'],
+            'sexe' => $licencie['sexelicencie'],
+            'date_naissance' => $licencie['datedenaissance'],
+            'categorie' => $licencie['categorielicencie'],
+            'position' => $licencie['positionlicencie'],
+            'adresse' => $licencie['adr_licencie'],
+            'ville' => $licencie['adr_ville_licencie'],
+            'telephone' => $licencie['tel_licencie'],
+            'email' => $licencie['mail_licencie'],
+            'nationalite' => $licencie['nationalite_licencie'],
+            'classification' => $licencie['classification_licencie'],
+            'validite_CM' => $licencie['validite_CM'],
+            'annee_reprise' => $licencie['annee_reprise'],
+            'premiere_licence' => $licencie['premiere_licence'],
+            'club' => $licencie['numeroaffiliation']
+
         );
 
         // Convertir le tableau en JSON
         $jsonData = json_encode($data);
 
         // Chemin où sauvegarder le QR code généré
-        $cheminQR = 'C:/Users/verb1/Desktop/ffbsq/assets/qrcode/';
+        $cheminQR = '../../assets/qrcode/';
 
         // Nom du fichier QR code (numéro de licence du licencié)
         $nomFichierQR = $licencie['numlicencie'] . "-" . $licencie['nomlicencie'] . "-" . $licencie['prenomlicencie'] . ".png";

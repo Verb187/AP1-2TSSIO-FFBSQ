@@ -108,6 +108,45 @@
         
             return $result;
         }
+
+        public function updateToken($idLicencie, $token) {
+            $model = new LicencesModel();
+            $result = $model->updateToken($idLicencie, $token);
+
+            return $result;
+        }
+
+        public function getLicencieByToken($token) {
+            $model = new LicencesModel();
+            $result = $model->getLicencieByToken($token);
+
+            return $result;
+        }
+
+        public function getLicencieBySearch($nom, $prenom, $numlicencie, $annee_reprise) {
+            $model = new LicencesModel();
+            $result = $model->getLicencieBySearch($nom, $prenom, $numlicencie, $annee_reprise);
+
+            return $result;
+        }
+
+        public function searchLicencie() {
+            session_start();
+
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $model = new LicencesModel();
+
+                $nom = $_POST['searchNom'];
+                $prenom = $_POST['searchPrenom'];
+                $numlicencie = $_POST['searchNumLicence'];
+
+                $result = $model->getLicencieBySearch($nom, $prenom, $numlicencie);
+
+                return $result;
+            }
+        }
+
+
         
         
 

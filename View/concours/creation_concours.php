@@ -27,8 +27,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <input type="date" id="date" name="date" class="form-control" required>
                 </div>
                 <div class="col-md-6">
-                    <label for="club" class="form-label">CLUB organisateur :</label>
-                    <input type="text" id="club" name="club" class="form-control" required>
+                <label for="club" class="form-label">Club organisateur :</label>
+                    <select id="club" name="club" class="form-select" required>
+                        <option value="">Sélectionner un club</option>
+                        <?php
+                        $controller = new ConcoursController();
+                        $clubs = $controller->getClubs();
+                        foreach ($clubs as $club) {
+                            echo '<option value="' . $club['numeroaffiliation'] . '">' . $club['numeroaffiliation'] . " > " . $club['designationclub'] . '</option>';
+                        }
+                        ?>
+                    </select>
                 </div>
                 <div class="col-md-6">
                     <label for="grille_points" class="form-label">Grille de points :</label>
@@ -72,7 +81,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </select>
                 </div>
                 <div class="col-12">
-                    <button type="submit" class="btn btn-primary w-100 mt-3">Valider</button>
+                    <button type="submit" class="btn btn-primary">Valider</button>
                 </div>
             </div>
         </form>

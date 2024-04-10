@@ -1,57 +1,26 @@
 <?php
-require_once '../assets/header.php';
 require_once (realpath(dirname(__FILE__) . '/../../Controller/controllerConcours.php'));
 
+// Déclaration de la variable $id_concours
+$id_concours = null;
+
+// Vérifier si le formulaire a été soumis
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $controller = new ConcoursController();
-    $controller->resultatConcours();
+    // Vérifier si la valeur du champ 'club_organisateur' est définie dans la requête POST
+    if (isset($_POST['club_organisateur'])) {
+        // Récupérer la valeur du champ 'club_organisateur'
+        $id_concours = $_POST['club_organisateur'];
+    } else {
+        // Afficher un message d'erreur si la valeur du champ 'club_organisateur' n'est pas définie
+        echo "Erreur : Identifiant du concours non défini.";
+        exit; // Arrêter l'exécution du script
+    }
 }
 
-// Vérifie si le formulaire a été soumis
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Récupère les données du formulaire
-    $nom = $_POST["nom"];
-    $date = $_POST["date"];
-    $equipes = intval($_POST["equipes"]); // Convertit en nombre entier
-    $categorie = $_POST["categorie"];
-
-    // Calcul des valeurs de résultats en fonction du nombre d'équipes et de la catégorie
-    $gagnant = 0;
-    $finaliste = 0;
-
-    if ($equipes > 64) {
-        if ($categorie == "B") {
-            $gagnant = 8;
-            $finaliste = 6;
-        } else {
-            $gagnant = 5;
-            $finaliste = 4;
-        }
-    } elseif ($equipes > 32) {
-        if ($categorie == "B") {
-            $gagnant = 6;
-            $finaliste = 4;
-        } else {
-            $gagnant = 4;
-            $finaliste = 3;
-        }
-    } elseif ($equipes > 16) {
-        if ($categorie == "B") {
-            $gagnant = 4;
-            $finaliste = 3;
-        } else {
-            $gagnant = 3;
-            $finaliste = 2;
-        }
-    } else {
-        $gagnant = 2;
-        $finaliste = 1;
-    }
-
-    // Affiche les résultats ou enregistre-les dans une base de données ou un fichier
-    echo "Résultats de la compétition '$nom' le $date :<br>";
-    echo "Gagnant: $gagnant points<br>";
-    echo "Finaliste: $finaliste points<br>";
+// Récupérer l'ID du concours sélectionné dans l'URL
+if (isset($_GET['id_concours'])) {
+    // Récupérer la valeur de l'ID du concours depuis l'URL
+    $id_concours = $_GET['id_concours'];
 }
 ?>
 
@@ -60,36 +29,39 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resultat d'un concours - FFBSQ</title>
+    <title>Résultat d'un concours - FFBSQ</title>
     <!-- Inclure Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 <h2>Résultat d'une compétition</h2>
-<form method="post">
+<form action="traitement.php?id_concours=<?php echo $id_concours; ?>" method="post">
+    <input type="hidden" name="id_concours" value="<?php echo $id_concours; ?>">
     <div class="row g-3">
         <div class="col-md-6">
             <label for="nom">Nom de la compétition :</label>
-            <input type="text" id="nom" name="nom" class="form-control">
-        </div>
-        <div class="col-md-6">
-            <label for="date">Date :</label>
-            <input type="date" id="date" name="date" class="form-control">
-        </div>
-        <div class="col-md-6">
-            <label for="equipes">Nombre d'équipes :</label>
-            <input type="number" id="equipes" name="equipes" class="form-control">
-        </div>
-        <div class="col-md-6">
-            <label for="categorie">Catégorie :</label>
-            <select id="categorie" name="categorie" class="form-select">
-                <option value="B">Grille B</option>
-                <option value="C">Grille C</option>
+            <select id="club_organisateur" name="club_organisateur" class="form-select" required>
+                <option value="">Sélectionner un concours</option>
+                <?php
+                // Créer une instance du contrôleur des concours
+                $controller = new ConcoursController();
+                
+                // Récupérer la liste des concours
+                $result = $controller->getConcours();
+                
+                // Parcourir les résultats pour générer les options du select
+                while ($row = $result->fetch_assoc()) {
+                    // Vérifier si l'ID du concours correspond à celui sélectionné précédemment
+                    $selected = ($id_concours == $row['id']) ? 'selected' : '';
+                    
+                    // Afficher l'option avec l'ID et le nom du concours
+                    echo '<option value="' . $row['id'] . '" ' . $selected . '>' . $row['id'] . ' - ' . $row['club_organisateur'] . '</option>';
+                }
+                ?>
             </select>
         </div>
     </div>
     <input type="submit" value="Valider" class="btn btn-primary mt-3">
 </form>
-
-
 </body>
+</html>

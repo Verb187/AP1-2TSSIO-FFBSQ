@@ -24,7 +24,7 @@ class ClubsController {
             );
 
             if ($result) {
-                header("Location: ../view/page_success.php");
+                header(realpath(__DIR__ . '/../../clubs/clubs.php'));
                 exit();
             } else {
                 echo "Erreur lors de l'insertion : " . $model->db->error;

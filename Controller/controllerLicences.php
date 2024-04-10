@@ -16,7 +16,7 @@
                 );
 
                 if ($result) {
-                    header("Location: /view/licence/licences.php");
+                    header("Location: ../licence/licences.php");
                     exit();
                 } else {
                     echo "Erreur lors de l'insertion : " . $model->db->error;
@@ -36,7 +36,7 @@
                 );
 
                 if ($result) {
-                    header("Location: /view/licence/licences.php");
+                    header("Location: ../licence/licences.php");
                     exit();
                 } else {
                     echo "Erreur lors de la mise à jour : " . $model->db->error;

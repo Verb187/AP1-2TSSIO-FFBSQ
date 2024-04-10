@@ -4,7 +4,7 @@ class DAOConnect {
     private static $hostname = 'localhost';
     private static $username = 'root';
     private static $password = '';
-    private static $database = 'AP_FFBSQ1';
+    private static $database = 'AP_FFBSQ2';
 
     public static function getInstance() {
         if (!isset(self::$mysqli)) {

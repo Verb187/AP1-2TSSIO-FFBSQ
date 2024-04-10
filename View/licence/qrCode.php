@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL); ini_set('display_errors', 1);
+
 // Inclure la bibliothèque PHP QR Code
 require_once (realpath(dirname(__FILE__) . '/../../Dependecies/phpqrcode/qrlib.php'));
 require_once (realpath(dirname(__FILE__) . '/../../Controller/controllerLicences.php'));
@@ -37,7 +39,7 @@ if(isset($_GET['id'])) {
         $jsonData = json_encode($data);
 
         // Chemin où sauvegarder le QR code généré
-        $cheminQR = '../../assets/qrcode/';
+        $cheminQR = '../../ffbsq/assets/qrcode/';
 
         // Nom du fichier QR code (numéro de licence du licencié)
         $nomFichierQR = $licencie['numlicencie'] . "-" . $licencie['nomlicencie'] . "-" . $licencie['prenomlicencie'] . ".png";

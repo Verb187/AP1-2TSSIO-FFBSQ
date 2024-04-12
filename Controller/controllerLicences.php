@@ -130,20 +130,11 @@
             return $result;
         }
 
-        public function searchLicencie() {
-            session_start();
+        public function searchLicencie($search) {
+            $model = new LicencesModel();
+            $result = $model->searchLicencie($search);
 
-            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                $model = new LicencesModel();
-
-                $nom = $_POST['searchNom'];
-                $prenom = $_POST['searchPrenom'];
-                $numlicencie = $_POST['searchNumLicence'];
-
-                $result = $model->getLicencieBySearch($nom, $prenom, $numlicencie);
-
-                return $result;
-            }
+            return $result;
         }
 
 

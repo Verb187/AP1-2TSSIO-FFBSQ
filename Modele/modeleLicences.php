@@ -109,23 +109,13 @@ class LicencesModel {
         return $result;
     }
 
-    public function getLicencieBySearch($nom, $prenom, $numlicencie) {
-        $nom = $this->db->real_escape_string($nom);
-        $prenom = $this->db->real_escape_string($prenom);
-        $numlicencie = $this->db->real_escape_string($numlicencie);
+    public function searchLicencie($search) {
+        $search = $this->db->real_escape_string($search);
 
-        $sql = "SELECT * FROM licencie WHERE nomlicencie LIKE '%$nom%' AND prenomlicencie LIKE '%$prenom%' AND numLicencie LIKE '%$numlicencie%'";
+        $sql = "SELECT * FROM licencie WHERE nomlicencie LIKE '%$search%' OR prenomlicencie LIKE '%$search%' OR numLicencie LIKE '%$search%' OR annee_reprise LIKE '%$search%'";
         $result = $this->db->query($sql);
 
-        $licences = array();
-
-        if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
-                $licences[] = $row;
-            }
-        }
-
-        return $licences;
+        return $result;
     }
     
     

@@ -2,14 +2,19 @@
 require_once '../assets/header.php';
 require_once (realpath(dirname(__FILE__) . '/../../Controller/controllerConcours.php'));
 
+
+
 $id_concours = $_GET['id_concours'];
+
 
 $controller = new ConcoursController();
 $concours = $controller->getConcoursById($id_concours);
 
-// Déterminez le nombre de finalistes et de vainqueurs en fonction du type de concours
-$nb_finalistes = 2; // Par défaut
-$nb_vainqueurs = 2; // Par défaut
+$nb_finalistes = 2; 
+$nb_vainqueurs = 2;
+
+if($concours){
+
 
 if ($concours['nature'] === 'doublette') {
     $nb_finalistes = 2;
@@ -24,6 +29,9 @@ if ($concours['nature'] === 'doublette') {
     $nb_vainqueurs = 1;
     $nb_demis_finalistes = 1;
 }
+
+
+
 
 // Déterminez les points en fonction de la grille de points B ou C
 $grille_points = $concours['grille_points'];
@@ -79,6 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     header("Location: page_confirmation.php");
     exit();
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -86,6 +95,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
     <title>Saisie des résultats</title>
 </head>
 <body>
@@ -93,6 +104,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="row">
         <div class="col-12 text-center">
             <h1>Saisie des résultats du concours n°<?php echo $id_concours; ?></h1>
+            <table class="table">
+            <thead>
+            <tr>
+                <th>N° Licencié</th>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Club</th>
+                <th>Points</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>123456</td>
+                <td>Dupont</td>
+                <td>Jean</td>
+                <td>Club A</td>
+                <td>8</td>
+            </tr>
+            </tbody>
+            </table>
             <form action="" method="POST">
                 <h2>Vainqueurs</h2>
                 <?php for ($i = 1; $i <= $nb_vainqueurs; $i++): ?>
@@ -125,11 +156,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         </div>
                     <?php endfor; ?>
                 <?php endif; ?>
-
-                <button type="submit">Enregistrer les résultats</button>
+<br>
+                <button class="btn btn-warning" type="submit">Enregistrer les résultats</button>
             </form>
         </div>
     </div>
 </div>
 </body>
 </html>
+
+<?php
+} else 
+{
+    echo "<div class='container'>
+    <div class='row'>
+        <div class='col-12 text-center'>";
+    echo "<div class='alert alert-danger'>Aucun concours trouvé</div>";
+    echo "retourner à la liste des concours <a href='concours.php'>ici</a>";
+}

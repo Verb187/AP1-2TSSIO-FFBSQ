@@ -86,5 +86,35 @@ class ConcoursController {
 
     }
 
+    public function getLicenciesByConcours($concoursId) {
+        // Instanciez le modèle ConcoursModel
+        $model = new ConcoursModel();
+    
+        // Récupérez les licenciés pour ce concours
+        $licencies = $model->getLicenciesByConcours($concoursId);
+    
+        // Pour chaque licencié, récupérez également le nombre de points
+        foreach ($licencies as &$licencie) {
+            $licencie['nombre_points'] = $model->getNombrePointsLicencie($licencie['id_licencie']);
+        }
+    
+        return $licencies;
+    }
+
+    public function getNombrePoints($concoursId, $licencieId) {
+        $model = new ConcoursModel();
+        $result = $model->getNombrePoints($concoursId, $licencieId);
+
+        return $result;
+    }
+
+    public function saveResult($concoursId, $licencieId, $nature, $type, $points) {
+        $model = new ConcoursModel();
+        $result = $model->saveResult($concoursId, $licencieId, $nature, $type, $points);
+
+        return $result;
+    }
+    
+
 }
 

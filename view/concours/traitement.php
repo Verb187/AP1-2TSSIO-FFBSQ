@@ -1,6 +1,7 @@
 <?php
 require_once '../assets/header.php';
 require_once (realpath(dirname(__FILE__) . '/../../Controller/controllerConcours.php'));
+require_once (realpath(dirname(__FILE__) . '/../../Controller/controllerLicences.php'));
 
 
 
@@ -75,18 +76,56 @@ if ($grille_points === 'B') {
 
 // Si le formulaire est soumis
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Récupération des données saisies
     $vainqueurs = $_POST['vainqueurs'];
+    $points_vainqueurs = $_POST['points_vainqueurs'];
     $finalistes = $_POST['finalistes'];
-    $demi_finalistes = $_POST['demi_finalistes'];
+    $points_finalistes = $_POST['points_finalistes'];
 
-    // Enregistrement des résultats (vous devez implémenter cette fonction dans votre contrôleur)
-    $controller->enregistrerResultats($id_concours, $vainqueurs, $finalistes, $demi_finalistes);
+    foreach ($vainqueurs as $key => $vainqueur) {
+        $controller->saveResult($id_concours, $vainqueur, $concours['nature'], 'gagnant', $points_vainqueurs[$key]);
+    }
 
-    // Redirection vers une page de confirmation ou autre
-    header("Location: page_confirmation.php");
-    exit();
+    foreach ($finalistes as $key => $finaliste) {
+        $controller->saveResult($id_concours, $finaliste, $concours['nature'], 'finaliste', $points_finalistes[$key]);
+    }
+
+    if ($concours['nombre_equipes'] > 32) {
+        $demi_finalistes = $_POST['demi_finalistes'];
+        $points_demi_finalistes = $_POST['points_demi_finalistes'];
+
+        foreach ($demi_finalistes as $key => $demi_finaliste) {
+            $controller->saveResult($id_concours, $demi_finaliste, $concours['nature'], 'demi-finaliste', $points_demi_finalistes[$key]);
+        }
+    }
+
+
+    header('Location: autre_page.php');
+    exit;
+
 }
+
+
+    $licencies = $controller->getLicenciesByConcours($id_concours);
+
+    // Recupération des informations des licenciés grace à leur id
+    $controllerLicencie = new LicencesController();
+    foreach ($licencies as $key => $licencie) {
+        $licencies[$key] = $controllerLicencie->getLicencieById($licencie['id_licencie']);
+    }
+
+    // recuperation du nombre_points pour chaque licencié
+    // Récupération du nombre de points pour chaque licencié
+foreach ($licencies as $key => $licencie) {
+    $points_licencie = $controller->getNombrePoints($id_concours, $licencie['numlicencie']);
+    if ($points_licencie !== false) {
+        $licencies[$key]['nombre_points'] = $points_licencie['nombre_points'];
+    } else {
+        $licencies[$key]['nombre_points'] = 0; // Définir un nombre de points par défaut si aucun résultat n'est trouvé
+    }
+}
+
+
+
 
 ?>
 
@@ -115,13 +154,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>123456</td>
-                <td>Dupont</td>
-                <td>Jean</td>
-                <td>Club A</td>
-                <td>8</td>
-            </tr>
+            <?php foreach ($licencies as $licencie) : ?>
+                <tr>
+                    <td><?php echo $licencie['numlicencie']; ?></td>
+                    <!-- Afficher le nom du licencié avec le foreach qu'on a fait plus haut -->
+                    <td><?php echo $licencie['nomlicencie']; ?></td>
+                    <td><?php echo $licencie['prenomlicencie']; ?></td>
+                    <td><?php echo $licencie['numeroaffiliation']; ?></td>   
+                    <td><?php echo isset($licencie['nombre_points']) ? $licencie['nombre_points'] : ''; ?></td>
+                </tr>
+            <?php endforeach; ?>
             </tbody>
             </table>
             <form action="" method="POST">

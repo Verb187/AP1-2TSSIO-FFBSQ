@@ -19,18 +19,15 @@ require_once (realpath(dirname(__FILE__) . '/../../Controller/controllerUtilisat
     <div class="container">
         <div class="row">
             <div class="col-md-6">
-                <!-- Compte connecté -->
                 <span>Compte connecté: <strong><?php echo $userInfo['prenom'] . ' ' . $userInfo['nom']; ?></strong></span>
             </div>
             <div class="col-md-6 text-end">
-                <!-- Date et heure de connexion -->
                 <span>Date et heure de connexion: <strong><?php echo $userInfo['derniere_connexion']; ?></strong></span>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Barre de navigation -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light flex-column">
     <div class="container">
         <a class="navbar-brand" href="#">FFBSQ</a>
@@ -62,15 +59,11 @@ require_once (realpath(dirname(__FILE__) . '/../../Controller/controllerUtilisat
     </div>
 </nav>
 
-<!-- Contenu principal commence ici -->
 <div class="container mt-5">
 <!-- Insérez votre contenu principal ici -->
 </div>
 
-<!-- Ajouter des scripts JavaScript pour le menu dynamique -->
 <script>
-    // Code JavaScript pour le menu dynamique
-    // Par exemple, détecter la fenêtre active et mettre en surbrillance le lien correspondant dans le menu
 </script>
 </body>
 </html>

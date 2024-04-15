@@ -5,7 +5,7 @@ require_once (realpath(dirname(__FILE__) . '/../../Controller/controllerLicences
 
 
 
-$id_concours = $_GET['id_concours'];
+$id_concours = $_GET['id_concours'] ;
 
 
 $controller = new ConcoursController();
